@@ -15,7 +15,7 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (3,3), 0)
     faces = faceCascade.detectMultiScale(frame, scaleFactor= 1.1,
-                                         minNeighbors=6, minSize=(100,100))
+                                         minNeighbors=5, minSize=(30,30))
     
     for (x,y,w,h) in faces:
         cv2.rectangle(frame, (x,y), (x+w, y+h), (255,0,0), 2)
@@ -27,7 +27,7 @@ while True:
 
     if cv2.waitKey(1) == ord('q'):
         break
-    elif count == 30: # stop when 30 photos have been taken
+    elif count == 50: # stop when 50 photos have been taken
         break
 
 cap.release()
