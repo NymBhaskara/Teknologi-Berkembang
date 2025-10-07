@@ -13,15 +13,14 @@ while True:
     _, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6,
-                                         minSize=(100,100))
+                                         minSize=(80,80))
     
     for (x,y,w,h) in faces:
         cv2.rectangle(frame, (x,y), (x+w, y+h), (255,0,0), 2)
         id, confidence = recognizer.predict(gray[y:y+h, x:x+w])
 
-        threshold = 60 # smaller = stricter
-        if confidence < threshold:
-            id = names[id] if id < len(names) else "unknown"
+        if confidence < 100:
+            id = names[id]
         else:
             id = "unknown"
         confidence = "{}%".format(round(100-confidence))

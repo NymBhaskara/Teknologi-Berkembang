@@ -23,7 +23,7 @@ def organizeDataset(path="dataset/"):
 if not checkDataset():
     print("Dataset not found")
 else:
-    recognizer = cv2.face.LBPHFaceRecognizer.create(radius=2, neighbors = 8, grid_x = 8, grid_y = 8)
+    recognizer = cv2.face.LBPHFaceRecognizer.create(radius=1, neighbors = 6, grid_x = 8, grid_y = 8)
     faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
     # train faces

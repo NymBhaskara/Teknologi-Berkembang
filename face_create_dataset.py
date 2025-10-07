@@ -13,6 +13,7 @@ count = 0 # count for image name id
 while True:
     _, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.GaussianBlur(gray, (3,3), 0)
     faces = faceCascade.detectMultiScale(frame, scaleFactor= 1.1,
                                          minNeighbors=6, minSize=(100,100))
     
