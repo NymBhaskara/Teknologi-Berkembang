@@ -6,21 +6,22 @@ faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 font = cv2.FONT_HERSHEY_COMPLEX
 
 id = 0
-names = ['None', 'Bhaskara']
+names = ['None', 'Bhaskara', 'Cristo', 'Krisna']
 cap = cv2.VideoCapture(0)
 
 while True:
     _, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5,
-                                         minSize=(30,30))
+    faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6,
+                                         minSize=(100,100))
     
     for (x,y,w,h) in faces:
         cv2.rectangle(frame, (x,y), (x+w, y+h), (255,0,0), 2)
         id, confidence = recognizer.predict(gray[y:y+h, x:x+w])
 
-        if confidence < 100:
-            id = names[id]
+        threshold = 60 # smaller = stricter
+        if confidence < threshold:
+            id = names[id] if id < len(names) else "unknown"
         else:
             id = "unknown"
         confidence = "{}%".format(round(100-confidence))

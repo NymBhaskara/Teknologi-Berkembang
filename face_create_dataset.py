@@ -8,13 +8,13 @@ dataset_path = "dataset/"
 if not os.path.exists(dataset_path):
     os.mkdir(dataset_path)
 
-person_id = 1 # id for person that we will detect
+person_id = int(input("Masukkan ID Orang (misal: 1, 2, 3): ")) # id for person that we will detect, input for different person
 count = 0 # count for image name id
 while True:
     _, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(frame, scaleFactor= 1.1,
-                                         minNeighbors=5, minSize=(30,30))
+                                         minNeighbors=6, minSize=(100,100))
     
     for (x,y,w,h) in faces:
         cv2.rectangle(frame, (x,y), (x+w, y+h), (255,0,0), 2)
